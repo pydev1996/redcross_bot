@@ -19,7 +19,7 @@ twilio_account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 twilio_auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(twilio_account_sid, twilio_auth_token)
 
-@app.route("/incoming/", methods=["POST"])
+@app.route("/incoming", methods=["POST"])
 def incoming():
     # Get the incoming message and sender's number
     user_message = request.form.get("Body")
@@ -39,6 +39,8 @@ def incoming():
 
     # Extract response from OpenAI
     reply = response["choices"][0]["message"]["content"]
+    print(f"Replying with: {reply}")
+
 
     # Create a Twilio response
     twilio_response = MessagingResponse()
